@@ -143,7 +143,7 @@ function App() {
         </>
       ) : (
         <>
-          <title>Results</title>
+          <h1>Results</h1>
           <section className="summary">
             <p>Name : {name}</p>
             <p>Email: {mail}</p>
@@ -158,6 +158,10 @@ function App() {
           </button>
         </>
       )}
+
+      <footer>
+        <p>Made with React at Le Reacteur by Brice</p>
+      </footer>
     </>
   );
 }
