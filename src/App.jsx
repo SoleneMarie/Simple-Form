@@ -1,37 +1,41 @@
 import { useState } from "react";
 import "./App.css";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 function App() {
-  const [name, setName] = useState("Jean Oppossum");
-  const [mail, setMail] = useState("jeanoppossum@lereacteur.io");
-  const [password, setPassword] = useState("Hop0sum!2024");
-  const [checkPass, setCheckPass] = useState("Hop0sum!2024");
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checkPass, setCheckPass] = useState("");
   const [stepTwo, setStepTwo] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [lengthError, setLengthError] = useState(false);
   const [emptyMessage, setEmptyMessage] = useState(false);
-  {
-    /**-----------------------------------Ma fonction changeField---------------------------------------/ */
-  }
+  const [passwordType, setPasswordType] = useState("password");
+  const [checkPasswordType, setCheckPasswordType] = useState("password");
+
+  /**-----------------------------------Ma fonction changeField---------------------------------------/ */
   const changeField = (setKey, event) => {
     {
       setKey(event.target.value);
       event.preventDefault();
     }
   };
-
+  /**-------------------------------------------------------------------------------------------------/ */
   return (
     <>
       {stepTwo === false ? (
         <>
-          {" "}
+          <h1>Create account</h1>{" "}
           {/**-----------------------------------Formulaire---------------------------------------/ */}
           <form>
             {/**-----------------------------------Nom---------------------------------------/ */}
             <label htmlFor="name">Name</label>
             <input
               type="texte"
-              name="name"
+              id="name"
+              placeholder="Jean Oppossum"
               onChange={(event) => changeField(setName, event)}
               value={name}
             />
@@ -39,31 +43,78 @@ function App() {
             <label htmlFor="mail">Email</label>
             <input
               type="email"
-              name="mail"
+              id="mail"
+              placeholder="jeanoppossum@lereacteur.io"
               onChange={(event) => changeField(setMail, event)}
               value={mail}
             />
             {/**-----------------------------------Password---------------------------------------/ */}
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              onChange={(event) => changeField(setPassword, event)}
-              value={password}
-            />
+            <label className="relative" htmlFor="password">
+              Password
+              <input
+                type={passwordType}
+                id="password"
+                placeholder="Hop0Seum!2014"
+                onChange={(event) => changeField(setPassword, event)}
+                value={password}
+              />
+              <div className="passIcon">
+                {passwordType === "password" ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPasswordType("texte");
+                    }}
+                  >
+                    <FaEye />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPasswordType("password");
+                    }}
+                  >
+                    <FaEyeSlash />
+                  </button>
+                )}
+              </div>
+            </label>
             {/**-----------------------------------Checkpassword---------------------------------------/ */}
             <label htmlFor="checkPass">Confirm your password</label>
             <input
-              type="password"
-              name="checkPass"
+              type={checkPasswordType}
+              id="checkPass"
+              placeholder="Hop0Seum!2014"
               onChange={(event) => changeField(setCheckPass, event)}
               value={checkPass}
             />
+            <div className="passIcon">
+              {checkPasswordType === "password" ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCheckPasswordType("texte");
+                  }}
+                >
+                  <FaEye />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCheckPasswordType("password");
+                  }}
+                >
+                  <FaEyeSlash />
+                </button>
+              )}
+            </div>
             {/**-----------------------------------Formulaire---------------------------------------/ */}
           </form>
           <button
             onClick={(event) => {
-              event.preventDefault;
+              event.preventDefault();
               setEmptyMessage(false);
               setLengthError(false);
               setErrorMessage(false);
@@ -92,15 +143,14 @@ function App() {
         </>
       ) : (
         <>
-          <title></title>
+          <title>Results</title>
           <section className="summary">
             <p>Name : {name}</p>
             <p>Email: {mail}</p>
             <p>Password: {password}</p>
           </section>
           <button
-            onClick={(event) => {
-              event.preventDefault;
+            onClick={() => {
               setStepTwo(false);
             }}
           >
