@@ -7,6 +7,9 @@ function App() {
   const [password, setPassword] = useState("Hop0sum!2024");
   const [checkPass, setCheckPass] = useState("Hop0sum!2024");
   const [stepTwo, setStepTwo] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [lengthError, setLengthError] = useState(false);
+  const [emptyMessage, setEmptyMessage] = useState(false);
   {
     /**-----------------------------------Ma fonction changeField---------------------------------------/ */
   }
@@ -59,24 +62,51 @@ function App() {
             {/**-----------------------------------Formulaire---------------------------------------/ */}
           </form>
           <button
-            onClick={() => {
-              if (checkPass === password) {
-                {
-                  setStepTwo(true);
-                }
+            onClick={(event) => {
+              event.preventDefault;
+              setEmptyMessage(false);
+              setLengthError(false);
+              setErrorMessage(false);
+
+              if (!password || !name || !mail) {
+                setEmptyMessage(true);
+              } else if (password.length < 10) {
+                setLengthError(true);
               } else {
-                {
-                  /* message d'erreur : les mots de passe ne sont pas identiques */
+                if (checkPass === password) {
+                  setStepTwo(true);
+                } else {
+                  setErrorMessage(true);
                 }
               }
             }}
           >
             Register
           </button>
+          {errorMessage && <p>Les mots de passe ne sont pas identiques</p>}
+          {lengthError && (
+            <p>Veuillez indiquer un mot de passe d'au moins 10 caractères</p>
+          )}
+          {emptyMessage && <p>Veuillez compléter tous les champs</p>}
           {/**-----------------------------------------------------------------------------------/ */}
         </>
       ) : (
-        "salut"
+        <>
+          <title></title>
+          <section className="summary">
+            <p>Name : {name}</p>
+            <p>Email: {mail}</p>
+            <p>Password: {password}</p>
+          </section>
+          <button
+            onClick={(event) => {
+              event.preventDefault;
+              setStepTwo(false);
+            }}
+          >
+            Edit your informations
+          </button>
+        </>
       )}
     </>
   );
