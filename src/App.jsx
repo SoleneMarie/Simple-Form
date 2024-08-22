@@ -6,40 +6,72 @@ function App() {
   const [mail, setMail] = useState("jeanoppossum@lereacteur.io");
   const [password, setPassword] = useState("Hop0sum!2024");
   const [checkPass, setCheckPass] = useState("Hop0sum!2024");
+  const [stepTwo, setStepTwo] = useState(false);
   {
     /**-----------------------------------Ma fonction changeField---------------------------------------/ */
   }
   const changeField = (setKey, event) => {
     {
       setKey(event.target.value);
+      event.preventDefault();
     }
-    return setKey;
   };
 
   return (
     <>
-      {/**-----------------------------------Formulaire---------------------------------------/ */}
+   {stepTwo===false?       {/**-----------------------------------Formulaire---------------------------------------/ */}
       <form>
         {/**-----------------------------------Nom---------------------------------------/ */}
-        <label for="name">Name</label>
+        <label htmlFor="name">Name</label>
         <input
           type="texte"
           name="name"
           value={name}
-          onChange={changeField(setName, event)}
+          onChange={(event) => changeField(setName, event)}
         />
         {/**-----------------------------------Mail---------------------------------------/ */}
-        <label for="mail">Email</label>
-        <input type="email" name="mail" value={mail} />
+        <label htmlFor="mail">Email</label>
+        <input
+          type="email"
+          name="mail"
+          value={mail}
+          onChange={(event) => changeField(setMail, event)}
+        />
         {/**-----------------------------------Password---------------------------------------/ */}
-        <label for="password">Password</label>
-        <input type="password" name="password" value={password} />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(event) => changeField(setPassword, event)}
+        />
         {/**-----------------------------------Checkpassword---------------------------------------/ */}
-        <label for="checkPass">Confirm your password</label>
-        <input type="password" name="checkPass" value={checkPass} />
+        <label htmlFor="checkPass">Confirm your password</label>
+        <input
+          type="password"
+          name="checkPass"
+          value={checkPass}
+          onChange={(event) => changeField(setCheckPass, event)}
+        />
         {/**-----------------------------------Formulaire---------------------------------------/ */}
       </form>
-      <button>Register</button>
+      <button
+        onclick={() => {
+          if (checkPass === password) {
+            {
+              /* charger le formulaire Results */
+            }
+          } else {
+            {
+              /* message d'erreur : les mots de passe ne sont pas identiques */
+            }
+          }
+        }}
+      >
+        Register
+      </button>    : "Salut"      }
+    
+ 
 
       {/**-----------------------------------------------------------------------------------/ */}
     </>
